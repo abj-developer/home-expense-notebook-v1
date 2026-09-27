@@ -24,6 +24,50 @@
         <label><span>Description <em>(Optional)</em></span><input type="text" formControlName="description" placeholder="Enter expense details..."></label>
         <div class="form-actions">@if (message) {<span class="success-message">✓ {{ message }}</span>}<button class="primary-button" type="submit" [disabled]="saving">{{ saving ? 'Saving...' : '+  Add Expense' }}</button></div>
       </form>
+      
+<div class="receipt-upload-field">
+  <label for="receipt-image">
+    <span>
+      Bill / Screenshot
+      <em>(Optional, max 5 MB)</em>
+    </span>
+  </label>
+
+  <input
+    id="receipt-image"
+    class="receipt-file-input"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+    (change)="onImageSelected($event)"
+  >
+
+  @if (imagePreviewUrl) {
+    <div class="receipt-preview">
+      <img
+        [src]="imagePreviewUrl"
+        alt="Selected bill or receipt preview"
+      >
+
+      <div>
+        <strong>{{ selectedImage?.name }}</strong>
+
+        <button
+          type="button"
+          class="link-button remove-image-button"
+          (click)="removeSelectedImage()"
+        >
+          Remove image
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (imageError) {
+    <p class="image-error" role="alert">
+      {{ imageError }}
+    </p>
+  }
+</div>
     </section>
 
     <section class="panel total-panel"><div class="panel-title"><span class="chart-icon">▥</span><h2>Total Expenses</h2></div><div class="grand-total">₹ {{ total() | number:'1.0-0' }}</div><div class="month-label">for {{ monthLabel() }}</div><div class="total-list">
@@ -47,6 +91,16 @@
       <strong class="expense-amount">
         ₹ {{ expense.amount | number:'1.0-0' }}
       </strong>
+          @if (expense.imageUrl) {
+      <a
+        class="receipt-link"
+        [href]="expense.imageUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View receipt image ↗
+      </a>
+      }
 
       <button
         type="button"

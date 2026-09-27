@@ -19,6 +19,7 @@ export interface Expense {
   amount: number;
   date: string;
   description: string;
+  imageUrl?: string;
 }
 
 export interface ExpenseRequest {
@@ -27,4 +28,5 @@ export interface ExpenseRequest {
   amount: number;
   date: string;
   description: string;
+  imageUrl?: string;
 }

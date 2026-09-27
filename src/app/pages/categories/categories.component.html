@@ -1,15 +1,269 @@
 <section class="page narrow-page">
-  <!-- <div class="page-heading"><div><h1>Categories</h1>
-    <p>Manage your major and minor expense categories.</p>
-  </div><button class="primary-button" (click)="showMajor = true">+ New Major Category</button></div>  -->
-  <div class="category-manager-grid">
-    @for (group of grouped(); track group.category.id) {
-      <article class="panel manager-card"><div class="manager-header"><div><span class="manager-icon">{{ group.category.icon }}</span><strong>{{ group.category.name }}</strong></div><button class="link-button" (click)="openMinor(group.category.id)">+ Minor</button></div>
-        <div class="minor-list">@for (minor of group.minors; track minor.id) {<span>{{ minor.name }}</span>} @empty {<span class="muted">No minor categories yet.</span>}</div>
-      </article>
-    }
-  </div>
-</section>
-<!-- @if (showMajor) {<div class="modal-backdrop" (click)="showMajor=false"><div class="modal" (click)="$event.stopPropagation()"><h2>Create Major Category</h2><input [(ngModel)]="majorName" placeholder="e.g. Utilities" (keyup.enter)="createMajor()"><div class="modal-actions"><button class="secondary-button" (click)="showMajor=false">Cancel</button><button class="primary-button" (click)="createMajor()">Create</button></div></div></div>} -->
 
-@if (showMinor) {<div class="modal-backdrop" (click)="showMinor=false"><div class="modal" (click)="$event.stopPropagation()"><h2>Add Minor Category</h2><p>Under <strong>{{ majorNameById() }}</strong></p><input [(ngModel)]="minorName" placeholder="e.g. BigBasket" (keyup.enter)="createMinor()"><div class="modal-actions"><button class="secondary-button" (click)="showMinor=false">Cancel</button><button class="primary-button" (click)="createMinor()">Add</button></div></div></div>}
+  @if (toastMessage) {
+  <div
+    class="toast"
+    [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'"
+    role="alert">
+
+    <span class="toast-icon">
+      {{ toastType === 'success' ? '✓' : '⚠' }}
+    </span>
+
+    <span class="toast-text">
+      {{ toastMessage }}
+    </span>
+
+    <button
+      class="toast-close"
+      type="button"
+      (click)="closeToast()"
+      aria-label="Close notification">
+      ×
+    </button>
+
+  </div>
+}
+
+  <div class="page-heading">
+    <div>
+      <h1>Categories</h1>
+      <p>Manage your major and minor expense categories.</p>
+    </div>
+
+    <button
+      class="primary-button"
+      (click)="showMajor = true; clearMessages()">
+      + New Major Category
+    </button>
+  </div>
+
+  <!-- @if (successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  } -->
+
+  <div class="category-manager-grid">
+
+    @for (group of grouped(); track group.category.id) {
+
+      <article class="panel manager-card">
+
+        <div class="manager-header">
+
+          <div>
+            <span class="manager-icon">
+              {{ group.category.icon }}
+            </span>
+
+            <strong>{{ group.category.name }}</strong>
+          </div>
+
+          <div class="category-actions">
+
+            <button
+              class="link-button"
+              (click)="editMajor(group.category)">
+              Edit
+            </button>
+
+            <button
+              class="link-button"
+              (click)="deleteMajor(group.category)">
+              Delete
+            </button>
+
+            <button
+              class="link-button"
+              (click)="openMinor(group.category.id)">
+              + Minor
+            </button>
+
+          </div>
+        </div>
+
+        <div class="minor-list">
+
+          @for (minor of group.minors; track minor.id) {
+
+            <div class="minor-category-row">
+
+              <span>{{ minor.name }}</span>
+
+              <div class="category-actions">
+
+                <button
+                  class="link-button"
+                  (click)="editMinor(minor)">
+                  Edit
+                </button>
+
+                <button
+                  class="link-button"
+                  (click)="deleteMinor(minor)">
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          } @empty {
+
+            <span class="muted">
+              No minor categories yet.
+            </span>
+
+          }
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+</section>
+
+
+<!-- Create Major Category Modal -->
+@if (showMajor) {
+
+  <div
+    class="modal-backdrop"
+    (click)="showMajor = false">
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()">
+
+      <h2>Create Major Category</h2>
+
+      <input
+        [(ngModel)]="majorName"
+        placeholder="e.g. Utilities"
+        (keyup.enter)="createMajor()">
+
+      <div class="modal-actions">
+
+        <button
+          class="secondary-button"
+          (click)="showMajor = false">
+          Cancel
+        </button>
+
+        <button
+          class="primary-button"
+          [disabled]="!majorName.trim()"
+          (click)="createMajor()">
+          Create
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+
+<!-- Create Minor Category Modal -->
+@if (showMinor) {
+
+  <div
+    class="modal-backdrop"
+    (click)="showMinor = false">
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()">
+
+      <h2>Add Minor Category</h2>
+
+      <p>
+        Under <strong>{{ majorNameById() }}</strong>
+      </p>
+
+      <input
+        [(ngModel)]="minorName"
+        placeholder="e.g. BigBasket"
+        (keyup.enter)="createMinor()">
+
+      <div class="modal-actions">
+
+        <button
+          class="secondary-button"
+          (click)="showMinor = false">
+          Cancel
+        </button>
+
+        <button
+          class="primary-button"
+          [disabled]="!minorName.trim()"
+          (click)="createMinor()">
+          Add
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+
+<!-- Edit Category Modal -->
+@if (showEdit) {
+
+  <div
+    class="modal-backdrop"
+    (click)="showEdit = false">
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()">
+
+      <h2>
+        Edit
+        {{ editingType === 'major' ? 'Major' : 'Minor' }}
+        Category
+      </h2>
+
+      <input
+        [(ngModel)]="editName"
+        placeholder="Enter category name"
+        (keyup.enter)="saveEdit()">
+
+      <div class="modal-actions">
+
+        <button
+          class="secondary-button"
+          (click)="showEdit = false">
+          Cancel
+        </button>
+
+        <button
+          class="primary-button"
+          [disabled]="!editName.trim()"
+          (click)="saveEdit()">
+          Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

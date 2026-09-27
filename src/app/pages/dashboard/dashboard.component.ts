@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MockApiService } from '../../core/mock-api.service';
 import { Expense, MajorCategory, MinorCategory } from '../../models/expense.models';
+import { CloudinaryUploadService } from '../../core/cloudinary-upload.service';
+import { finalize, of, switchMap } from 'rxjs';
 
 @Component({ selector: 'hen-dashboard', standalone: true, imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink], templateUrl: './dashboard.component.html' })
 export class DashboardComponent {
@@ -33,10 +35,20 @@ export class DashboardComponent {
     const amount = matching.reduce((sum, e) => sum + e.amount, 0);
     return { category, amount, count: matching.length, percentage: this.total() ? amount / this.total() * 100 : 0 };
   }));
+    private readonly cloudinary = inject(CloudinaryUploadService);
+
+    selectedImage: File | null = null;
+    imagePreviewUrl = '';
+    imageError = '';
+
+    readonly maxImageSize = 5 * 1024 * 1024;
+
+    private imageInput?: HTMLInputElement;
 
   showMajorModal = false; showMinorModal = false; newMajorName = ''; newMinorName = ''; saving = false; message = '';
 
   constructor() {
+
     effect(() => {
       const month = this.selectedMonth();
       const currentDate = this.expenseForm.controls.date.value;
@@ -52,22 +64,61 @@ export class DashboardComponent {
     });
   }
 
-  addExpense(): void {
-    if (this.expenseForm.invalid) { this.expenseForm.markAllAsTouched(); return; }
-    this.saving = true; this.message = '';
-    const formValue = this.expenseForm.getRawValue();
-   const request = {
-  ...formValue,
-  majorCategoryId: Number(formValue.majorCategoryId),
-  minorCategoryId: String(formValue.minorCategoryId),
-  amount: Number(formValue.amount)
-};
-    this.api.addExpense(request).subscribe(() => {
-      this.saving = false; this.message = 'Expense added successfully.';
-      this.expenseForm.controls.amount.setValue(0); this.expenseForm.controls.description.setValue('');
-      setTimeout(() => this.message = '', 2500);
-    });
+
+addExpense(): void {
+  if (this.expenseForm.invalid) {
+    this.expenseForm.markAllAsTouched();
+    return;
   }
+
+  this.saving = true;
+  this.message = '';
+  this.imageError = '';
+
+  const formValue = this.expenseForm.getRawValue();
+
+  const request = {
+    ...formValue,
+    majorCategoryId: Number(formValue.majorCategoryId),
+    minorCategoryId: String(formValue.minorCategoryId),
+    amount: Number(formValue.amount)
+  };
+
+  const upload$ = this.selectedImage
+    ? this.cloudinary.uploadImage(this.selectedImage)
+    : of('');
+
+  upload$.pipe(
+    switchMap(imageUrl =>
+      this.api.addExpense({
+        ...request,
+        ...(imageUrl ? { imageUrl } : {})
+      })
+    ),
+    finalize(() => this.saving = false)
+  ).subscribe({
+    next: () => {
+      this.message = 'Expense added successfully.';
+
+      this.expenseForm.controls.amount.setValue(0);
+      this.expenseForm.controls.description.setValue('');
+
+      this.removeSelectedImage();
+
+      setTimeout(() => this.message = '', 2500);
+    },
+    error: (error) => {
+      console.error(
+        'Unable to save expense or upload image',
+        error
+      );
+
+      this.imageError = this.selectedImage
+        ? 'Image upload failed. Check your Cloudinary upload preset and try again.'
+        : 'Could not save expense. Please try again.';
+    }
+  });
+}
 
   deleteExpense(expense: Expense): void {
   if (!confirm('Are you sure you want to delete this expense?')) {
@@ -99,4 +150,55 @@ export class DashboardComponent {
   }
 
   private today(): string { return new Date().toISOString().slice(0, 10); }
+
+  
+onImageSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.imageInput = input;
+
+  const file = input.files?.[0];
+  this.imageError = '';
+
+  if (!file) return;
+
+  const allowedTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/webp'
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    this.imageError = 'Please select a JPG, PNG, or WebP image.';
+    input.value = '';
+    return;
+  }
+
+  if (file.size > this.maxImageSize) {
+    this.imageError = 'Image size must be 5 MB or less.';
+    input.value = '';
+    return;
+  }
+
+  if (this.imagePreviewUrl) {
+    URL.revokeObjectURL(this.imagePreviewUrl);
+  }
+
+  this.selectedImage = file;
+  this.imagePreviewUrl = URL.createObjectURL(file);
+}
+
+removeSelectedImage(): void {
+  if (this.imagePreviewUrl) {
+    URL.revokeObjectURL(this.imagePreviewUrl);
+  }
+
+  this.selectedImage = null;
+  this.imagePreviewUrl = '';
+
+  if (this.imageInput) {
+    this.imageInput.value = '';
+  }
+
+  this.imageError = '';
+}
 }

@@ -1,29 +1,381 @@
 {
-  "$schema": "./node_modules/json-server/schema.json",
   "majorCategories": [
-    { "id": 1, "name": "Rent & Others", "icon": "⌂", "accent": "rose" },
-    { "id": 2, "name": "Grocery", "icon": "🛒", "accent": "green" },
-    { "id": 3, "name": "Outside Food", "icon": "🍴", "accent": "orange" },
-    { "id": 4, "name": "Vedu Expenses", "icon": "🎓", "accent": "purple" },
-    { "id": 5, "name": "Miscellaneous", "icon": "•••", "accent": "blue" }
+    {
+      "id": "1",
+      "name": "Rent & Others",
+      "icon": "⌂",
+      "accent": "rose"
+    },
+    {
+      "id": "2",
+      "name": "Grocery",
+      "icon": "🛒",
+      "accent": "green"
+    },
+    {
+      "id": "3",
+      "name": "Outside Food",
+      "icon": "🍴",
+      "accent": "orange"
+    },
+    {
+      "id": "4",
+      "name": "Vedu Expenses",
+      "icon": "🎓",
+      "accent": "purple"
+    },
+    {
+      "id": "5",
+      "name": "Miscellaneous",
+      "icon": "•••",
+      "accent": "blue"
+    }
   ],
   "minorCategories": [
-    { "id": 101, "majorCategoryId": 1, "name": "Rent" },
-    { "id": 102, "majorCategoryId": 1, "name": "Electricity" },
-    { "id": 103, "majorCategoryId": 1, "name": "Internet" },
-    { "id": 201, "majorCategoryId": 2, "name": "Swiggy Instamart" },
-    { "id": 202, "majorCategoryId": 2, "name": "Zepto" },
-    { "id": 203, "majorCategoryId": 2, "name": "Offline" },
-    { "id": 204, "majorCategoryId": 2, "name": "Milk & Dairy" },
-    { "id": 301, "majorCategoryId": 3, "name": "Zomato" },
-    { "id": 302, "majorCategoryId": 3, "name": "Swiggy" },
-    { "id": 303, "majorCategoryId": 3, "name": "Restaurant" },
-    { "id": 401, "majorCategoryId": 4, "name": "School Fees" },
-    { "id": 402, "majorCategoryId": 4, "name": "Toys" },
-    { "id": 403, "majorCategoryId": 4, "name": "Clothes" },
-    { "id": 501, "majorCategoryId": 5, "name": "Travel" },
-    { "id": 502, "majorCategoryId": 5, "name": "Shopping" },
-    { "id": 503, "majorCategoryId": 5, "name": "Other" }
+    {
+      "id": "101",
+      "majorCategoryId": 1,
+      "name": "Rent"
+    },
+    {
+      "id": "102",
+      "majorCategoryId": 1,
+      "name": "Electricity"
+    },
+    {
+      "id": "103",
+      "majorCategoryId": 1,
+      "name": "Internet"
+    },
+    {
+      "id": "201",
+      "majorCategoryId": 2,
+      "name": "Swiggy Instamart"
+    },
+    {
+      "id": "202",
+      "majorCategoryId": 2,
+      "name": "Zepto"
+    },
+    {
+      "id": "203",
+      "majorCategoryId": 2,
+      "name": "Offline"
+    },
+    {
+      "id": "204",
+      "majorCategoryId": 2,
+      "name": "Milk & Dairy"
+    },
+    {
+      "id": "301",
+      "majorCategoryId": 3,
+      "name": "Zomato"
+    },
+    {
+      "id": "302",
+      "majorCategoryId": 3,
+      "name": "Swiggy"
+    },
+    {
+      "id": "303",
+      "majorCategoryId": 3,
+      "name": "Restaurant"
+    },
+    {
+      "id": "401",
+      "majorCategoryId": 4,
+      "name": "School Fees"
+    },
+    {
+      "id": "402",
+      "majorCategoryId": 4,
+      "name": "Toys"
+    },
+    {
+      "id": "403",
+      "majorCategoryId": 4,
+      "name": "Clothes"
+    },
+    {
+      "id": "501",
+      "majorCategoryId": 5,
+      "name": "Travel"
+    },
+    {
+      "id": "502",
+      "majorCategoryId": 5,
+      "name": "Shopping"
+    },
+    {
+      "id": "503",
+      "majorCategoryId": 5,
+      "name": "Other"
+    },
+    {
+      "id": "IxOBlJQhjEk",
+      "majorCategoryId": 1,
+      "name": "Maids"
+    },
+    {
+      "majorCategoryId": 1,
+      "name": "plumber",
+      "id": "VI4xe01yK1Y"
+    },
+    {
+      "majorCategoryId": 4,
+      "name": "Formula",
+      "id": "KrCtUYgtz_k"
+    },
+    {
+      "majorCategoryId": 5,
+      "name": "Abj Personal",
+      "id": "0ttfIrs524s"
+    },
+    {
+      "majorCategoryId": 2,
+      "name": "Amazon",
+      "id": "M-Xo7ypJ90E"
+    },
+    {
+      "majorCategoryId": 4,
+      "name": "Medicines",
+      "id": "B0d2c6xHvbg"
+    },
+    {
+      "majorCategoryId": 5,
+      "name": "Doctor and Medicines",
+      "id": "LyJwvpCCEb4"
+    }
   ],
-  "expenses": []
+  "expenses": [
+    {
+      "majorCategoryId": 1,
+      "minorCategoryId": "101",
+      "amount": 24000,
+      "date": "2026-09-14",
+      "description": "rent of sept month",
+      "id": "hxIkt_7QYVg"
+    },
+    {
+      "majorCategoryId": 1,
+      "minorCategoryId": "102",
+      "amount": 6888,
+      "date": "2026-09-14",
+      "description": "electricity from July/Aug.",
+      "id": "W6_athcShro"
+    },
+    {
+      "majorCategoryId": 4,
+      "minorCategoryId": "KrCtUYgtz_k",
+      "amount": 2586,
+      "date": "2026-09-10",
+      "description": "2 Formula packet nano pro+ 2 wheat apple and 1 diaper- 2007 rajiv+ 579 ikram galay",
+      "id": "9afbs5cAqkQ"
+    },
+    {
+      "majorCategoryId": 5,
+      "minorCategoryId": "0ttfIrs524s",
+      "amount": 199,
+      "date": "2026-09-14",
+      "description": "Gullu Ko diya tha",
+      "id": "4_Yd1NJVy1I"
+    },
+    {
+      "majorCategoryId": 5,
+      "minorCategoryId": "501",
+      "amount": 2203,
+      "date": "2026-09-21",
+      "description": "Tirwa to Noida Bus",
+      "id": "RzcYFojVXR0"
+    },
+    {
+      "majorCategoryId": 4,
+      "minorCategoryId": "KrCtUYgtz_k",
+      "amount": 1664,
+      "date": "2026-09-17",
+      "description": "2 formula rajeev+ 1 diaper",
+      "id": "y-jg3kW_nJ0"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 260,
+      "date": "2026-09-26",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790417550/bcacami3rwmoa6jagib5.jpg",
+      "id": "RdpcjGmsxnw"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 222,
+      "date": "2026-09-25",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790418552/nb2sv03mdojfupbrueh9.jpg",
+      "id": "sFnhHnS4BOg"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 316,
+      "date": "2026-09-26",
+      "description": "Badam+Sweet Bun+Milk",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790418840/em35uczqcqnqpwqklmhs.jpg",
+      "id": "HjM6W9r-szc"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 412,
+      "date": "2026-09-23",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419144/plfans4l3jlccxtxxfxi.jpg",
+      "id": "7V4ErEVyZfY"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 563,
+      "date": "2026-09-23",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419280/ty0a5hodnx9t0snuhdeg.jpg",
+      "id": "rRGENw2FeS8"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 208,
+      "date": "2026-09-22",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419402/mwha2cpotyr1jyf2mc15.jpg",
+      "id": "-I6lNApz2FU"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 247,
+      "date": "2026-09-22",
+      "description": "",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419595/aqfasg0jjqd7ivjy10oi.jpg",
+      "id": "bN4IoewYmC0"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 35,
+      "date": "2026-09-22",
+      "description": "Milk",
+      "id": "HXUEsUsO2ds"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 238,
+      "date": "2026-09-22",
+      "description": "Avacado+Aata+Brinjal+Milk+Chilly+loki",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419782/iu0uqsbn8fpelit8b4fk.jpg",
+      "id": "o3y5QbAFjDQ"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "202",
+      "amount": 352,
+      "date": "2026-09-21",
+      "description": "Adrakh+peanutbutter+tomato+beans+milk+bread",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790419874/z3jmvognu3av5tlj1uji.jpg",
+      "id": "iQTxTgpM99U"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "M-Xo7ypJ90E",
+      "amount": 217,
+      "date": "2026-09-08",
+      "description": "Ketomac Shampoo",
+      "id": "16CoFElt8o8"
+    },
+    {
+      "majorCategoryId": 4,
+      "minorCategoryId": "B0d2c6xHvbg",
+      "amount": 240,
+      "date": "2026-09-14",
+      "description": "Vitamin D and Drop",
+      "id": "h9rOV_F6SJk"
+    },
+    {
+      "majorCategoryId": 5,
+      "minorCategoryId": "LyJwvpCCEb4",
+      "amount": 300,
+      "date": "2026-09-26",
+      "description": "1 Mg se betu SSRI + vedu teething 21 no goli.",
+      "id": "a2HdQcWEGJQ"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "201",
+      "amount": 164,
+      "date": "2026-09-25",
+      "description": "131 refund makhano ka",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790420812/po8b8md57khxf7pf7f8h.jpg",
+      "id": "NYu7DA26TfE"
+    },
+    {
+      "majorCategoryId": 3,
+      "minorCategoryId": "302",
+      "amount": 157,
+      "date": "2026-09-23",
+      "description": "Burgers",
+      "id": "1B2HRfa9gfQ"
+    },
+    {
+      "majorCategoryId": 3,
+      "minorCategoryId": "302",
+      "amount": 478,
+      "date": "2026-09-21",
+      "description": "Lunch- 356- paneer + jeera aalo & 122-missi roti",
+      "id": "MXyeYNxv1l8"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "M-Xo7ypJ90E",
+      "amount": 187,
+      "date": "2026-09-24",
+      "description": "Haldiram samosa & Aalo Bhujia & Milk",
+      "id": "pE8LT5ixhg4"
+    },
+    {
+      "majorCategoryId": 2,
+      "minorCategoryId": "M-Xo7ypJ90E",
+      "amount": 929,
+      "date": "2026-09-21",
+      "description": "Ghee & Jeera & Garlic & Moong Daal & Aalo",
+      "imageUrl": "https://res.cloudinary.com/ettscqmf/image/upload/v1790421224/sbjjjkzs4gzp41yrrdn1.jpg",
+      "id": "myMWyqFZEOs"
+    },
+    {
+      "majorCategoryId": 5,
+      "minorCategoryId": "503",
+      "amount": 349,
+      "date": "2026-09-23",
+      "description": "Recharge Abj 9044.....",
+      "id": "evNO4H818CM"
+    },
+    {
+      "majorCategoryId": 1,
+      "minorCategoryId": "IxOBlJQhjEk",
+      "amount": 150,
+      "date": "2026-09-22",
+      "description": "Urban Company",
+      "id": "rU5XCPnyeEk"
+    },
+    {
+      "majorCategoryId": 3,
+      "minorCategoryId": "301",
+      "amount": 278,
+      "date": "2026-09-21",
+      "description": "Roll ",
+      "id": "S-H_nIpoiI0"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

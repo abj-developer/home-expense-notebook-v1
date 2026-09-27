@@ -30,7 +30,20 @@
             @for (expense of group.expenses; track expense.id) {
               <div class="expense-row">
                 <div><strong>₹ {{ expense.amount | number:'1.0-0' }}</strong><span>{{ expense.date | date:'dd MMM yyyy' }}</span></div>
-                <p>{{ expense.description || 'No description' }}</p>
+                                <p>
+                  {{ expense.description || 'No description' }}
+
+                  @if (expense.imageUrl) {
+                    <a
+                      class="receipt-link"
+                      [href]="expense.imageUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View receipt image ↗
+                    </a>
+                  }
+                </p>
               </div>
             }
           </div>
