@@ -80,7 +80,7 @@
     <h2>Recent Expenses</h2>
   </div>
 
-  @for (expense of monthExpenses(); track expense.id) {
+  @for (expense of recentExpenses(); track expense.id) {
     <div class="expense-row">
 
       <div class="expense-info">
@@ -91,28 +91,44 @@
       <strong class="expense-amount">
         ₹ {{ expense.amount | number:'1.0-0' }}
       </strong>
-          @if (expense.imageUrl) {
-      <a
-        class="receipt-link"
-        [href]="expense.imageUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View receipt image ↗
-      </a>
-      }
 
-      <button
-        type="button"
-        class="delete-btn"
-        (click)="deleteExpense(expense)">
-        Delete
-      </button>
+      @if (expense.imageUrl) {
+        <div class="expense-actions has-image">
+          <div class="receipt-inline">
+            <a
+              class="receipt-link"
+              [href]="expense.imageUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View receipt image ↗
+            </a>
+
+            <button
+              type="button"
+              class="delete-btn delete-icon-btn"
+              aria-label="Delete expense"
+              title="Delete expense"
+              (click)="deleteExpense(expense)">
+              🗑
+            </button>
+          </div>
+        </div>
+      } @else {
+        <button
+          type="button"
+          class="delete-btn delete-icon-btn delete-btn-inline"
+          aria-label="Delete expense"
+          title="Delete expense"
+          (click)="deleteExpense(expense)">
+          🗑
+        </button>
+      }
 
     </div>
   }
 
-  @if (monthExpenses().length === 0) {
+  @if (recentExpenses().length === 0) {
     <div class="empty-expenses">
       No expenses for {{ monthLabel() }}.
     </div>

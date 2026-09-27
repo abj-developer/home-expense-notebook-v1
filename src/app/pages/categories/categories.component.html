@@ -70,15 +70,17 @@
           <div class="category-actions">
 
             <button
-              class="link-button"
-              (click)="editMajor(group.category)">
-              Edit
+              class="link-button icon-button"
+              (click)="editMajor(group.category)"
+              aria-label="Edit major category">
+              ✎
             </button>
 
             <button
-              class="link-button"
-              (click)="deleteMajor(group.category)">
-              Delete
+              class="link-button icon-button danger-icon"
+              (click)="deleteMajor(group.category)"
+              aria-label="Delete major category">
+              🗑
             </button>
 
             <button
@@ -101,15 +103,17 @@
               <div class="category-actions">
 
                 <button
-                  class="link-button"
-                  (click)="editMinor(minor)">
-                  Edit
+                  class="link-button icon-button"
+                  (click)="editMinor(minor)"
+                  aria-label="Edit minor category">
+                  ✎
                 </button>
 
                 <button
-                  class="link-button"
-                  (click)="deleteMinor(minor)">
-                  Delete
+                  class="link-button icon-button danger-icon"
+                  (click)="deleteMinor(minor)"
+                  aria-label="Delete minor category">
+                  🗑
                 </button>
 
               </div>

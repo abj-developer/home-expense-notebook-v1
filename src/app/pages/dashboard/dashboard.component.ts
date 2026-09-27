@@ -28,6 +28,11 @@ export class DashboardComponent {
     return `${year}-${String(month).padStart(2, '0')}-${String(new Date(year, month, 0).getDate()).padStart(2, '0')}`;
   });
   readonly monthExpenses = computed(() => this.expenses().filter(e => e.date.startsWith(this.selectedMonth())));
+  readonly recentExpenses = computed(() =>
+    [...this.monthExpenses()]
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 10)
+  );
   readonly selectedMinors = computed(() => this.minorCategories().filter(m => m.majorCategoryId === this.selectedMajorId()));
   readonly total = computed(() => this.monthExpenses().reduce((sum, e) => sum + e.amount, 0));
   readonly categoryTotals = computed(() => this.categories().map(category => {

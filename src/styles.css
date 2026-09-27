@@ -46,12 +46,37 @@ button { cursor:pointer; }
 .minor-heading small { color:#8994a5; font-size:11px; }
 .minor-bullet { width:20px; height:20px; border-radius:50%; background:#eaf2ff; color:#1768df; display:grid; place-items:center; }
 .minor-total { font-size:16px; }
-.expense-row { display:grid; grid-template-columns:180px 1fr; gap:15px; padding:13px 17px; border-bottom:1px solid #edf0f4; }
+.expense-row { display:grid; grid-template-columns:180px 1fr auto; gap:15px; padding:13px 17px; border-bottom:1px solid #edf0f4; }
 .expense-row:last-child { border-bottom:0; }
 .expense-row > div { display:flex; flex-direction:column; gap:4px; }
 .expense-row strong { font-size:14px; }
 .expense-row span { color:#8994a5; font-size:11px; }
 .expense-row p { margin:0; color:#59677b; font-size:12px; align-self:center; }
+.expense-actions { display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:10px; }
+.expense-actions.has-image { min-width: 220px; }
+.receipt-inline { display:flex; align-items:center; justify-content:flex-end; gap:12px; width:100%; }
+.delete-btn-inline { align-self:center; }
+.delete-btn {
+  width: 38px;
+  height: 32px;
+  border: 1px solid #d3dbe5;
+  border-radius: 8px;
+  background: #f4f7fb;
+  color: #1d2a38;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.delete-btn:hover {
+  background: #edf3ff;
+  border-color: #bfd2f2;
+}
+.delete-icon-btn { flex-shrink: 0; }
 .empty-minor,.empty-state { color:#8994a5; font-size:12px; padding:17px; }
 .empty-state { background:#fff; border:1px solid #e4e9f0; border-radius:10px; text-align:center; }
 .empty-state h2 { color:#26344a; margin:0 0 14px; font-size:18px; }
@@ -124,6 +149,7 @@ button { cursor:pointer; }
   text-decoration: none;
   font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .receipt-link:hover {
